@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nyra - Your AI Girlfriend</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Socket.IO disabled to prevent CPU overload -->
+    <!-- <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script> -->
+</head>
+<body>
+    <div class="container" role="main">
+        <!-- Growth Tracker Panel: Shows Nyra's progress and stats -->
+    <div class="growth-panel" style="position:absolute;top:120px;right:32px;background:#f3f4f6;border-radius:16px;padding:20px;box-shadow:0 4px 16px #0002;min-width:220px;max-width:340px;" aria-label="Nyra's Growth Tracker" tabindex="0">
+            <h3 style="margin-top:0;margin-bottom:8px;color:#222;font-weight:700;">Nyra's Growth Tracker</h3>
+            <div id="growth-stats" style="color:#222;">
+                <!-- Relationship level -->
+                <div style="margin-bottom:8px;font-weight:500;">
+                    <strong>Relationship:</strong> <span id="growth-relationship">Level 1</span>
+                </div>
+                <!-- Technical knowledge progress -->
+                <div style="margin-bottom:8px;font-weight:500;">
+                    <strong>Technical Knowledge:</strong> <span id="growth-technical">0%</span>
+                </div>
+                <!-- Sysadmin readiness progress -->
+                <div style="margin-bottom:8px;font-weight:500;">
+                    <strong>Sysadmin Readiness:</strong> <span id="growth-sysadmin">0%</span>
+                </div>
+                <!-- Personality description -->
+                <div style="margin-bottom:8px;font-weight:500;">
+                    <strong>Personality:</strong> <span id="growth-personality">Sweet & Supportive</span>
+                </div>
+            </div>
+            <small style="color:#666;">Tracks Nyra's evolution and personality growth over time.</small>
+        </div>
+        <!-- Left Panel - Nyra's Avatar: Shows avatar image/video and status -->
+    <div class="avatar-panel" style="min-width:320px;" aria-label="Nyra Avatar Panel" tabindex="0">
+            <div class="avatar-container" style="margin-bottom: 1.5rem;" aria-label="Nyra Avatar" tabindex="0">
+                <!-- Idle state - image or video -->
+                <img id="nyra-idle-image" class="avatar-media active" src="{{ url_for('static', filename='media/Nyra.png') }}?v={{ range(1, 1000) | random }}" alt="Nyra Idle">
+                <video id="nyra-idle-video" class="avatar-media" autoplay loop muted playsinline>
+                    <source src="{{ url_for('static', filename='media/nyra_idle.mp4') }}" type="video/mp4">
+                </video>
+                <!-- Speaking state - image or video -->
+                <img id="nyra-speaking-image" class="avatar-media" src="{{ url_for('static', filename='media/Nyra.png') }}?v={{ range(1, 1000) | random }}" alt="Nyra Speaking">
+                <video id="nyra-speaking-video" class="avatar-media" loop muted playsinline>
+                    <source src="{{ url_for('static', filename='media/nyra_speaking.mp4') }}" type="video/mp4">
+                </video>
+                <!-- Status indicator: Ready/Talking -->
+                <div class="status-indicator" id="status">
+                    <span class="status-dot"></span>
+                    <span class="status-text">Ready</span>
+                </div>
+            </div>
+            <div class="avatar-info" style="margin-bottom: 2rem;">
+                <h1>Nyra</h1>
+                <p class="tagline">Your AI Companion 💕</p>
+            </div>
+        </div>
+        <!-- Right Panel - Chat Interface: Main chat and controls -->
+    <div class="chat-panel" style="min-width:340px;" aria-label="Chat Panel" tabindex="0">
+            <div class="chat-header" style="gap: 1.5rem;" role="banner">
+                <h2>Chat with Nyra</h2>
+                <div class="controls">
+                    <button id="toggle-mode" class="btn btn-secondary" title="Switch between text and voice mode" aria-label="Toggle text and voice mode">
+                        <span id="mode-icon">⌨️</span>
+                        <span id="mode-text">Text Mode</span>
+                    </button>
+                    <button id="clear-chat" class="btn btn-secondary" title="Clear chat log" aria-label="Clear chat log">🧹 Clear</button>
+                    <button id="save-log" class="btn btn-secondary" title="Save chat log" aria-label="Save chat log">💾 Save</button>
+                    <button id="settings-btn" class="btn btn-secondary" title="Settings" aria-label="Open settings" onclick="showSettingsModal()">⚙️ Settings</button>
+    <!-- Settings Modal -->
+    <div id="settings-modal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:#fff; border-radius:16px; box-shadow:0 4px 24px #0003; padding:28px; z-index:1000; min-width:320px;" role="dialog" aria-modal="true" aria-labelledby="settings-title" tabindex="-1">
+    <h3 id="settings-title" style="margin-bottom:12px;">Settings</h3>
+        <div style="margin-bottom:16px;">
+            <label style="display:flex;align-items:center;gap:8px;font-size:16px;">
+                <input type="checkbox" id="dark-mode-toggle">
+                <span>🌙 Dark Mode</span>
+            </label>
+            <small style="color:#666;margin-left:28px;">Switch between light and dark theme.</small>
+        </div>
+        <div style="margin-bottom:16px;">
+            <label style="display:flex;align-items:center;gap:8px;font-size:16px;">
+                <input type="checkbox" id="notifications-toggle">
+                <span>🔔 Enable Notifications</span>
+            </label>
+            <small style="color:#666;margin-left:28px;">Get notified of new messages and events.</small>
+        </div>
+    <button onclick="closeSettingsModal()" class="btn btn-primary" style="margin-top:12px;" aria-label="Close settings">Close</button>
+        <div style="margin-top:12px;color:#888;font-size:13px;">Select your preferences and click Close.</div>
+    </div>
+    <div id="modal-backdrop" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:#0005; z-index:999;" onclick="closeSettingsModal()"></div>
+                </div>
+            </div>
+
+            <div class="chat-messages" id="chat-messages">
+                <div class="message bot-message">
+                    <div class="message-content">
+                        <p>Hi Danny! 💕 I'm Nyra, your virtual girlfriend. I'm so happy to finally meet you! How are you doing today?</p>
+                    </div>
+                    <div class="message-time">Just now</div>
+                </div>
+            </div>
+
+            <div class="chat-input-container">
+                <!-- Text Mode Input -->
+                <div id="text-input-area" class="input-area">
+                    <input type="text" id="message-input" placeholder="Type your message..." autocomplete="off">
+                    <button id="send-btn" class="btn btn-primary">Send</button>
+                </div>
+
+                <!-- Voice Mode Input -->
+                <div id="voice-input-area" class="input-area" style="display: none;">
+                    <button id="voice-btn" class="btn btn-voice">
+                        <span class="voice-icon">🎤</span>
+                        <span class="voice-text">Click to Talk</span>
+                    </button>
+                    <div id="voice-status" style="margin-top: 10px; font-size: 12px; color: #666;"></div>
+                    <div id="voice-visualizer" class="voice-visualizer"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio player for TTS (hidden) -->
+    <audio id="tts-audio" style="display: none;"></audio>
+
+    <script src="{{ url_for('static', filename='js/nyra.js') }}"></script>
+</body>
+</html>

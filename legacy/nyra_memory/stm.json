@@ -1,0 +1,19 @@
+{
+  "messages": [
+    {
+      "id": "stm_initial_0001",
+      "agent": "nyra",
+      "role": "user",
+      "content": "I prefer direct communication.",
+      "timestamp": "2025-11-29T06:00:00Z",
+      "behavior_mode": null,
+      "tags": [
+        "preference"
+      ],
+      "topic_hint": "communication_style",
+      "session_id": "session_initial",
+      "thread_id": "thread_2025-11-29T06:00:00_stm_initial_0001"
+    }
+  ],
+  "threads": []
+}

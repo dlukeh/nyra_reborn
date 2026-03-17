@@ -1,0 +1,30 @@
+{
+  "memories": [
+    {
+      "id": "ltm_2025-11-30T02:27:59.439776Z",
+      "agent": "nyra",
+      "type": "preference",
+      "summary": "I prefer direct communication.",
+      "details": null,
+      "tags": [
+        "communication_style",
+        "preference"
+      ],
+      "created_at": "2025-11-30T02:27:59.439776Z",
+      "updated_at": "2025-11-30T02:27:59.439776Z",
+      "source_threads": [
+        "thread_2025-11-29T06:00:00_stm_initial_0001"
+      ],
+      "source_examples": [
+        "stm_initial_0001"
+      ],
+      "importance": 0.85,
+      "stability": 0.9,
+      "decay_counter": 0,
+      "status": "active",
+      "rule_hits": [
+        "preference"
+      ]
+    }
+  ]
+}

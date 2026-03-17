@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nyra Systems — Gemini 2.5 Pro</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f7f7fa; margin: 0; padding: 0; }
+        .container { max-width: 600px; margin: 40px auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px #ccc; padding: 32px; }
+        h1 { color: #3a3a7c; }
+        textarea { width: 100%; height: 80px; font-size: 1em; margin-bottom: 16px; }
+        button { background: #3a3a7c; color: #fff; border: none; padding: 10px 24px; border-radius: 4px; font-size: 1em; cursor: pointer; }
+        .response { margin-top: 24px; background: #f0f0ff; padding: 16px; border-radius: 6px; min-height: 40px; }
+
+        /* Image panel */
+        #image-preview { width: 100%; max-height: 300px; object-fit: contain; display: none; margin-top: 12px; border-radius: 6px; }
+        #image-result { background: #eef; padding: 12px; border-radius: 6px; white-space: pre-wrap; margin-top: 12px; min-height: 40px; }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <h1>🧠 Nyra Systems — Gemini 2.5 Pro</h1>
+
+    <!-- TEXT CHAT -->
+    <form id="nyra-form">
+        <textarea id="prompt" placeholder="Type your question for Nyra..."></textarea>
+        <button type="submit">Ask Gemini</button>
+    </form>
+    <div class="response" id="response">{{ message }}</div>
+
+    <hr style="margin: 32px 0;">
+
+    <!-- IMAGE ANALYSIS -->
+    <h2>Nyra Vision — Image Analysis</h2>
+    
+    <input type="file" id="image-input" accept="image/*">
+    <img id="image-preview" alt="Preview">
+
+    <textarea id="image-prompt" placeholder="Optional: Add instructions for the image..."></textarea>
+
+    <button id="analyze-btn">Analyze Image</button>
+
+    <div id="image-result"></div>
+</div>
+
+<script>
+    // ========== TEXT CHAT ==========
+    document.getElementById('nyra-form').onsubmit = async function(e) {
+        e.preventDefault();
+        const prompt = document.getElementById('prompt').value;
+        document.getElementById('response').textContent = 'Thinking...';
+
+        const res = await fetch('/generate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ prompt })
+        });
+
+        const data = await res.json();
+        document.getElementById('response').textContent =
+            data.response || data.error || '(No response)';
+    };
+
+    // ========== IMAGE ANALYSIS ==========
+    const imgInput = document.getElementById("image-input");
+    const imgPreview = document.getElementById("image-preview");
+    const imgPrompt = document.getElementById("image-prompt");
+    const imgResult = document.getElementById("image-result");
+
+    imgInput.addEventListener("change", () => {
+        const file = imgInput.files[0];
+        if (!file) return;
+        imgPreview.src = URL.createObjectURL(file);
+        imgPreview.style.display = "block";
+    });
+
+    document.getElementById("analyze-btn").addEventListener("click", async () => {
+        const file = imgInput.files[0];
+        if (!file) {
+            imgResult.textContent = "Please select an image.";
+            return;
+        }
+
+        imgResult.textContent = "Analyzing image…";
+
+        const formData = new FormData();
+        formData.append("image", file);
+
+        if (imgPrompt.value.trim()) {
+            formData.append("prompt", imgPrompt.value.trim());
+        }
+
+        const res = await fetch("/api/analyze_image", {
+            method: "POST",
+            body: formData
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            imgResult.textContent = data.error || "Server error.";
+            return;
+        }
+
+        imgResult.textContent =
+            "Filename: " + data.filename + "\n" +
+            "Timestamp: " + data.timestamp + "\n\n" +
+            data.summary;
+    });
+</script>
+
+</body>
+</html>

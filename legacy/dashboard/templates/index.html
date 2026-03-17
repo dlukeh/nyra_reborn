@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Agent Control Hub</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #181c20; color: #eee; }
+        .container { max-width: 700px; margin: 40px auto; background: #222; padding: 30px; border-radius: 10px; }
+        h1 { color: #7fffd4; }
+        .memory { margin-top: 20px; }
+        .log { margin-top: 20px; font-size: 0.95em; color: #aaa; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Agent Control Hub</h1>
+        <div class="memory">
+            <h2>Memory Status</h2>
+            <pre id="memory"></pre>
+        </div>
+        <div class="log">
+            <h2>Logs</h2>
+            <pre id="logs">(coming soon)</pre>
+        </div>
+    </div>
+    <script>
+        fetch('/api/memory').then(r => r.json()).then(data => {
+            document.getElementById('memory').textContent = JSON.stringify(data, null, 2);
+        });
+    </script>
+</body>
+</html>

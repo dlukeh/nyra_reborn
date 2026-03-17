@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+env/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Model checkpoints
+legacy/wav2lip/checkpoints/
+legacy/wav2lip/models/
+legacy/wav2lip/temp/
+
+# Large data
+legacy/data/memory/
+legacy/data/explorations/
+
+# Uploads
+legacy/uploads/
+
+# Misc
+*.tmp

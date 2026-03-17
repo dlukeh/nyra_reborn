@@ -1,0 +1,13 @@
+{
+  "agent_name": "nyra",
+  "model": "gpt-5.1",
+  "memory_dir": "nyra_memory/",
+  "system_prompt_path": "system_prompts/nyra_prompt.txt",
+  "personality_mode": "direct_blade",
+  "temperature": 0.65,
+  "max_output_tokens": 4096,
+  "logging": {
+    "enabled": true,
+    "log_file": "nyra_memory/logs.txt"
+  }
+}

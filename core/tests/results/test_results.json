@@ -1,0 +1,116 @@
+{
+  "timestamp": 1761275948.760569,
+  "passed_tests": 14,
+  "failed_tests": 4,
+  "success_rate": 77.77777777777779,
+  "detailed_results": [
+    {
+      "test": "Memory storage and retrieval",
+      "status": "\u2705 PASS",
+      "details": "Stored and retrieved: This is a test memory for basic operations...",
+      "passed": true
+    },
+    {
+      "test": "Data integrity check",
+      "status": "\u2705 PASS",
+      "details": "Retrieved data matches stored data exactly",
+      "passed": true
+    },
+    {
+      "test": "Emotional weight calculation",
+      "status": "\u274c FAIL",
+      "details": "Emotional: 1.100 > Neutral: 1.200",
+      "passed": false
+    },
+    {
+      "test": "Technical memory storage",
+      "status": "\u274c FAIL",
+      "details": "Found 0 technical memories",
+      "passed": false
+    },
+    {
+      "test": "Technical relevance scoring",
+      "status": "\u274c FAIL",
+      "details": "0 memories have high technical relevance",
+      "passed": false
+    },
+    {
+      "test": "Keyword search functionality",
+      "status": "\u2705 PASS",
+      "details": "Found 1 results for 'python'",
+      "passed": true
+    },
+    {
+      "test": "Memory type filtering",
+      "status": "\u2705 PASS",
+      "details": "Found 2 technical memories",
+      "passed": true
+    },
+    {
+      "test": "Combined search and metadata filtering",
+      "status": "\u2705 PASS",
+      "details": "Found 1 urgent server-related memories",
+      "passed": true
+    },
+    {
+      "test": "Memory persistence across restarts",
+      "status": "\u2705 PASS",
+      "details": "Successfully persisted and loaded: Persistence test data created ...",
+      "passed": true
+    },
+    {
+      "test": "Conversation integration",
+      "status": "\u274c FAIL",
+      "details": "Error: Working outside of request context.\n\nThis typically means that you attempted to use functionality that needed\nan active HTTP request. Consult the documentation on testing for\ninformation about how to avoid this problem.",
+      "passed": false
+    },
+    {
+      "test": "Statistics field: total_memories",
+      "status": "\u2705 PASS",
+      "details": "Value: 7",
+      "passed": true
+    },
+    {
+      "test": "Statistics field: capacity",
+      "status": "\u2705 PASS",
+      "details": "Value: 100",
+      "passed": true
+    },
+    {
+      "test": "Statistics field: utilization",
+      "status": "\u2705 PASS",
+      "details": "Value: 0.07",
+      "passed": true
+    },
+    {
+      "test": "Statistics field: memory_types",
+      "status": "\u2705 PASS",
+      "details": "Value: {'test': 2, 'conversation': 2, 'technical': 2, 'emotional': 1}",
+      "passed": true
+    },
+    {
+      "test": "Utilization calculation accuracy",
+      "status": "\u2705 PASS",
+      "details": "Expected: 0.070, Actual: 0.070",
+      "passed": true
+    },
+    {
+      "test": "Storage performance",
+      "status": "\u2705 PASS",
+      "details": "Stored 50 memories in 0.077 seconds",
+      "passed": true
+    },
+    {
+      "test": "Retrieval performance",
+      "status": "\u2705 PASS",
+      "details": "Retrieved 50 memories in 0.000 seconds",
+      "passed": true
+    },
+    {
+      "test": "Load test data integrity",
+      "status": "\u2705 PASS",
+      "details": "All 50 memories retrieved correctly",
+      "passed": true
+    }
+  ]
+}

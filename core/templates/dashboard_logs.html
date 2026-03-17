@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}AI Avengers – Log Dashboard{% endblock %}
+{% block content %}
+<div class="container py-4">
+  <h2 class="text-primary fw-bold mb-3">🧠 Cognitive Reflection Dashboard</h2>
+  <div class="row g-3 mb-3">
+    <div class="col-md-4"><input id="searchQuery" class="form-control" placeholder="Search by keyword"></div>
+    <div class="col-md-4"><input id="searchTags" class="form-control" placeholder="Tags (comma-separated)"></div>
+    <div class="col-md-2"><button id="filterBtn" class="btn btn-primary w-100">Filter</button></div>
+    <div class="col-md-2"><button id="refreshBtn" class="btn btn-outline-secondary w-100">Refresh</button></div>
+  </div>
+  <div class="row mb-4" id="summary-cards">
+    <div class="col-md-4"><div class="card p-3 text-center"><h6>Total Logs</h6><h2 id="totalLogs">0</h2></div></div>
+    <div class="col-md-4"><div class="card p-3 text-center"><h6>Top Tone</h6><h2 id="topTone">—</h2></div></div>
+    <div class="col-md-4"><div class="card p-3 text-center"><h6>Top Tag</h6><h2 id="topTag">—</h2></div></div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <h5>Reflection Entries</h5>
+      <table class="table table-hover align-middle">
+        <thead><tr><th>Date</th><th>Title</th><th>Phase</th><th>Tone</th><th>Tags</th></tr></thead>
+        <tbody id="logsTableBody"><tr><td colspan="5" class="text-center text-muted">Loading…</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+  <button id="nightOpsBtn" class="btn btn-dark mt-3">🌙 Run Night Ops</button>
+</div>
+
+<script>
+async function loadDashboard(q="",t=""){
+  const params=new URLSearchParams();
+  if(q)params.append("q",q);
+  if(t)params.append("tags",t);
+  const res=await fetch(`/api/logs?${params.toString()}`);
+  const data=await res.json(); renderLogs(data.logs);
+  const stats=await (await fetch("/api/logs/stats")).json(); renderStats(stats);
+}
+function renderLogs(logs){
+  const body=document.getElementById("logsTableBody"); body.innerHTML="";
+  if(!logs.length){body.innerHTML=`<tr><td colspan=5 class='text-center text-muted'>No logs found</td></tr>`;return;}
+  logs.forEach(l=>{
+    body.innerHTML+=`<tr>
+      <td>${new Date(l.timestamp).toLocaleDateString()}</td>
+      <td>${l.title}</td>
+      <td>${l.phase}</td>
+      <td><span class='badge bg-info'>${l.emotional_tone}</span></td>
+      <td>${(l.tags||[]).map(x=>`<span class='badge bg-secondary me-1'>${x}</span>`).join("")}</td>
+    </tr>`;
+  });
+}
+function renderStats(s){
+  document.getElementById("totalLogs").textContent=s.total_logs;
+  document.getElementById("topTone").textContent=Object.keys(s.emotional_tones).sort((a,b)=>s.emotional_tones[b]-s.emotional_tones[a])[0]||"—";
+  document.getElementById("topTag").textContent=Object.keys(s.tags).sort((a,b)=>s.tags[b]-s.tags[a])[0]||"—";
+}
+document.getElementById("filterBtn").onclick=()=>loadDashboard(
+  document.getElementById("searchQuery").value,
+  document.getElementById("searchTags").value
+);
+document.getElementById("refreshBtn").onclick=()=>loadDashboard();
+loadDashboard();
+</script>
+<script>
+document.getElementById("nightOpsBtn").addEventListener("click", async () => {
+  const res = await fetch("/api/run_night_ops");
+  const data = await res.json();
+  alert(`Night Ops Complete!\nProcessed: ${data.entries} entries\nSummary: ${data.summary_file}`);
+});
+</script>
+{% endblock %}

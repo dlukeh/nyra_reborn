@@ -1,0 +1,30 @@
+{
+  "items": {
+    "health_check": {
+      "key": "health_check",
+      "data": "test",
+      "metadata": {},
+      "timestamp": 1761359822.8034468,
+      "memory_type": "test",
+      "priority": 1.0,
+      "ttl_seconds": null,
+      "decay_rate": 0.0001,
+      "emotional_weight": 1.0,
+      "technical_relevance": 1.0,
+      "last_access": 1761359822.8034601,
+      "access_count": 0
+    }
+  },
+  "user_info": {
+    "name": "Danny",
+    "role": "Creator/Partner",
+    "preferences": {},
+    "relationship_milestones": []
+  },
+  "evolution_progress": {
+    "girlfriend_phase": 1.0,
+    "technical_knowledge": 0.0,
+    "sysadmin_readiness": 0.0
+  },
+  "saved_at": 1761359822.8034973
+}

@@ -1,0 +1,76 @@
+/* ---------- Core Theme ---------- */
+body {
+  background: linear-gradient(135deg,#0b132b,#1c2541);
+  color:#e0e0e0;
+  font-family:"Segoe UI",Roboto,sans-serif;
+  transition:background .3s,color .3s;
+}
+a,.btn{transition:.25s ease-in-out}
+.btn:hover{transform:translateY(-2px)}
+.navbar-brand{text-shadow:0 0 6px #00b4d8}
+
+/* ---------- Light / Dark Modes ---------- */
+:root {
+  --bg-dark:#0b132b;
+  --text-dark:#e0e0e0;
+  --bg-light:#f8f9fa;
+  --text-light:#212529;
+}
+body[data-theme="dark"] {
+  background:linear-gradient(135deg,var(--bg-dark),#1c2541);
+  color:var(--text-dark);
+}
+body[data-theme="light"] {
+  background:var(--bg-light);
+  color:var(--text-light);
+}
+body[data-theme="light"] .navbar{background-color:#fff!important}
+body[data-theme="light"] .navbar a{color:#212529!important}
+body[data-theme="light"] footer{background:#e9ecef;color:#333}
+
+/* ---------- Nyra Mode ---------- */
+body.nyra-active{animation:nyra-bg 8s ease-in-out infinite alternate}
+@keyframes nyra-bg{
+  0%{background:linear-gradient(135deg,#1c1b4b,#0b132b)}
+  100%{background:linear-gradient(135deg,#4b0082,#001f3f)}
+}
+.btn-nyra-active{
+  background:radial-gradient(circle,#6a0dad,#4b0082);
+  color:#fff!important;
+  border:none;
+  box-shadow:0 0 12px #9b4dff,0 0 24px #00b4d8;
+  animation:nyra-glow 1.6s ease-in-out infinite alternate;
+}
+@keyframes nyra-glow{
+  0%{box-shadow:0 0 6px #9b4dff,0 0 16px #00b4d8}
+  100%{box-shadow:0 0 16px #9b4dff,0 0 32px #00b4d8}
+}
+body.nyra-active h1,
+body.nyra-active h4,
+body.nyra-active .navbar-brand{
+  text-shadow:0 0 10px #9b4dff,0 0 20px #00b4d8;
+  color:#d6c5ff!important;
+}
+body.nyra-active footer{
+  background:rgba(75,0,130,.3);
+  color:#cfcfff;
+  text-shadow:0 0 6px #9b4dff;
+}
+body.nyra-active .navbar-brand{
+  animation:nyra-pulse 2.8s ease-in-out infinite;
+}
+@keyframes nyra-pulse{
+  0%,100%{text-shadow:0 0 5px #9b4dff}
+  50%{text-shadow:0 0 15px #00b4d8,0 0 25px #9b4dff}
+}
+/* Flash sync with chime */
+body.nyra-active::before{
+  content:"";
+  position:fixed;inset:0;
+  background:radial-gradient(circle,rgba(155,77,255,.2),transparent 70%);
+  animation:nyra-flash 1.2s ease-out;
+  pointer-events:none;z-index:9999;
+}
+@keyframes nyra-flash{
+  0%{opacity:0}25%{opacity:1}100%{opacity:0}
+}

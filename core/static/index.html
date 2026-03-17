@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nyra Systems — Text Mode</title>
+
+    <style>
+        body {
+            background-color: #0a0f24;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 700px;
+            background: #11172f;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.25);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 26px;
+            margin-bottom: 20px;
+            color: #6ec6ff;
+        }
+
+        textarea {
+            width: 100%;
+            height: 120px;
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            resize: none;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 12px;
+            border: none;
+            border-radius: 8px;
+            background-color: #4aa8e0;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #3d92c4;
+        }
+
+        #response {
+            background: #0d132b;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 8px;
+            min-height: 120px;
+            white-space: pre-wrap;
+            color: #e1e9ff;
+            font-size: 16px;
+            line-height: 1.45em;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="container">
+    <h1>Nyra — Text Interface</h1>
+
+    <textarea id="user_input" placeholder="Type your message to Nyra here..."></textarea>
+    <button onclick="sendText()">Ask Gemini</button>
+
+    <div id="response"></div>
+</div>
+
+<script>
+async function sendText() {
+    const input = document.getElementById("user_input").value.trim();
+    const output = document.getElementById("response");
+
+    if (!input) {
+        output.textContent = "Please enter a message.";
+        return;
+    }
+
+    output.textContent = "Thinking...";
+
+    try {
+        const res = await fetch("/generate", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ input })
+        });
+
+        const data = await res.json();
+
+        if (data.error) {
+            output.textContent = "Error: " + data.error;
+        } else {
+            output.textContent = data.response;
+        }
+
+    } catch (err) {
+        output.textContent = "Network error: " + err.message;
+    }
+}
+</script>
+
+</body>
+</html>

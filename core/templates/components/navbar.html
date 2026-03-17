@@ -1,0 +1,30 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold text-info" href="{{ url_for('index') }}">🤖 AI Avengers</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+  <li class="nav-item"><a class="nav-link" href="{{ url_for('index') }}">Home</a></li>
+  <li class="nav-item"><a class="nav-link" href="{{ url_for('dashboard_logs') }}">Dashboard</a></li>
+  <li class="nav-item"><a class="nav-link" href="{{ url_for('dashboard_logs') }}">Settings</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('about') }}">About</a></li>
+        {% if session.get('auth') %}
+        <li class="nav-item"><a class="nav-link text-warning" href="{{ url_for('logout') }}">Logout</a></li>
+        {% else %}
+        <li class="nav-item"><a class="nav-link text-success" href="{{ url_for('login') }}">Login</a></li>
+        {% endif %}
+      </ul>
+      <button id="theme-toggle" class="btn btn-outline-info ms-3" type="button">
+        <span id="theme-icon" class="bi bi-brightness-high"></span>
+      </button>
+      <a href="{{ url_for('nyra_mode', state=('off' if nyra_active|default(false) else 'on')) }}"
+         id="nyra-indicator"
+         class="btn ms-2 {% if nyra_active %}btn-nyra-active{% else %}btn-outline-primary{% endif %}">
+         <span class="bi bi-lightning-charge"></span>
+         {% if nyra_active %} Nyra Active {% else %} Activate Nyra {% endif %}
+      </a>
+    </div>
+  </div>
+</nav>
