@@ -86,7 +86,7 @@ Press `Ctrl+C` in terminal
 
 ### Environment Variables (.env)
 ```bash
-GENAI_API_KEY=AIzaSyC5yMDhpzAkx5L3Xd3Jop2dNj6tswNvpBw
+GENAI_API_KEY=
 ```
 
 ### Server Settings (in app_web.py)
@@ -94,7 +94,6 @@ GENAI_API_KEY=AIzaSyC5yMDhpzAkx5L3Xd3Jop2dNj6tswNvpBw
 HOST = "0.0.0.0"  # Listen on all interfaces
 PORT = 5001       # Default port
 DEBUG = True      # Enable debug mode
-```
 
 ---
 
