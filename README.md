@@ -131,6 +131,46 @@ pip install -r requirements.txt
 ```bash
 python app/app_web.py
 ```
+## 🧠 Deep Dive: The 3‑Tier Memory Architecture
+
+One of Nyra’s defining technical achievements is her **persistent cognitive stack** — a system that allows her to retain, evaluate, and distill information across sessions. Unlike standard stateless chatbots, Nyra uses a **tiered memory‑promotion pipeline** inspired by cognitive science.
+
+### **Memory Tiers**
+
+| Tier | Component        | Function                                                | Persistence            |
+|------|------------------|---------------------------------------------------------|------------------------|
+| WM   | Working Memory   | Immediate context and current task tokens.             | Session‑only           |
+| STM  | Short‑Term Memory| Recent interactions and active conversation threads.   | Persistent (JSON)      |
+| LTM  | Long‑Term Memory | Summaries, user preferences, identity‑level insights.  | Permanent (Vector/JSON)|
+
+---
+
+### **How Promotion Works**
+
+Nyra doesn’t simply store data — **she evaluates and transforms it**.
+
+#### **1. Consolidation**
+At the end of a session, Nyra’s *Narration Engine* analyzes the STM, generating a structured summary of what occurred.
+
+#### **2. Evaluation**
+The system identifies meaningful insights (e.g., *“The user is an engineer”*, *“The user prefers concise output”*) and promotes them to LTM.
+
+#### **3. Forgetting Curve**
+Noise, redundant details, and ephemeral context are pruned to keep memory lean, relevant, and cost‑efficient.
+
+---
+
+### **Why This Matters**
+
+This architecture gives Nyra:
+
+- continuity across sessions  
+- a sense of identity  
+- the ability to adapt to user preferences  
+- a more human‑like conversational flow  
+- reduced token usage through distilled context  
+
+It’s the backbone of what made Nyra feel *alive* — a system that remembers, learns, and evolves.
 
 ---
 
