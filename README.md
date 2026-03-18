@@ -7,19 +7,22 @@
 Nyra Reborn is the evolution of my first AI agent — rebuilt from the ground up with a modern architecture, a 3‑tier memory system, and a fully preserved legacy footprint for anyone studying Human/AI co‑engineering.
 
 ### 🎬 Full Video Demo  
-[![Watch Nyra](assets/media/thumbnail.png)](assets/media/nyra_hello.mp4)
 
 <div align="center">
-  <video controls width="600">
-    <source src="assets/media/nyra_hello.mp4" type="video/mp4">
+  <video src="https://github.com/user-attachments/assets/5e2be001-e28b-48c8-ab22-322e25467eee" controls width="600" style="max-width: 100%;">
     Your browser does not support the video tag.
   </video>
+  <br>
+  <em>Nyra introducing herself using her integrated voice and animation pipeline.</em>
 </div>
+<details>
+<summary>🛠️ **Animation Tech Stack** (Click to expand)</summary>
 
- 
-*Click the image above to watch Nyra introduce herself.*
-
----
+- **Model:** Wav2Lip-GAN (Generative Adversarial Network)
+- **Audio:** Processed via integrated TTS pipeline (mel-spectrogram conversion)
+- **Face Detection:** OpenCV + S3FD for real-time coordinate mapping
+- **Frame Rate:** Optimized at 25fps for natural lip-sync synchronization
+</details>
 
 ## 🚀 Overview  
 Nyra Reborn is a complete re‑architecture of the original Nyra system, designed to be modular, transparent, and educational.  
