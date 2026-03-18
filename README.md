@@ -9,7 +9,7 @@ Nyra Reborn is the evolution of my first AI agent — rebuilt from the ground up
 ### 🎬 Full Video Demo  
 [![Watch Nyra](assets/media/thumbnail.png)](assets/media/nyra_hello.mp4)
 
-<<div align="center">
+<div align="center">
   <video controls width="600">
     <source src="assets/media/nyra_hello.mp4" type="video/mp4">
     Your browser does not support the video tag.
