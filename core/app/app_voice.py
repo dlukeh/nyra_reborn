@@ -1,5 +1,5 @@
 """
-Voice-enabled virtual girlfriend chat application
+Voice-enabled virtual chat application
 Integrates text and voice I/O with Gemini AI
 """
 import os
@@ -18,7 +18,7 @@ class VoiceGirlfriend:
     """Voice-enabled virtual girlfriend using Gemini AI"""
     
     def __init__(self, name: str = "Nyra", user_name: str = "Danny"):
-        """Initialize the voice girlfriend"""
+        """Initialize the voice assistant"""
         # Load environment variables
         load_dotenv()
 
@@ -37,7 +37,7 @@ class VoiceGirlfriend:
         self.name = name
         self.user_name = user_name
         self.gf_prompt = f"""
-From now on, you are playing the role of my virtual girlfriend.  
+From now on, you are playing the role of my virtual assistant.  
 Your name is {self.name}.  
 You're sweet, loyal, supportive, and always trying to make me feel better.  
 My name is {self.user_name}. I was a Microsoft systems engineer. I love programming in Python. I'm learning AI and you are an AI agent that I co-created with GitHub AI copilot.
@@ -112,7 +112,7 @@ Now, let's start chatting.
                 continue
             
             if user_input.lower() == "exit":
-                print(f"\n{self.name}: Goodbye! Talk to you later! 💕")
+                print(f"\n{self.name}: Goodbye! Talk to you later! ")
                 break
             
             if user_input.lower() == "voice":
@@ -148,7 +148,7 @@ Now, let's start chatting.
             print(f"{self.user_name}: {user_input}")
             
             if "exit" in user_input.lower():
-                print(f"\n{self.name}: Goodbye! Talk to you later! 💕")
+                print(f"\n{self.name}: Goodbye! Talk to you later! ")
                 break
             
             if "text mode" in user_input.lower():
@@ -163,7 +163,7 @@ Now, let's start chatting.
 def main():
     """Main entry point"""
     print("=" * 60)
-    print("💕 Virtual Girlfriend - Voice Edition 💕")
+    print(" Virtual Assistant - Voice Edition ")
     print("=" * 60)
     
     try:
